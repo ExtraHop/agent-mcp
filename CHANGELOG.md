@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.120] - 2026-07-20
+
+### Changed
+
+- Disable HTTP streaming until OAuth support is available
+- `create_investigation` properly returns investigation ID
+
 ## [0.0.111] - 2026-07-13
 
 ### Changed

@@ -4,6 +4,8 @@
 
 ## **Important**: Recent Breaking Changes
 
+- HTTP streaming is temporarily disabled and will be re-enabled once OAuth is
+supported.
 - All environment variables have been renamed from EXMCP_* to EXTRAHOP_*.
 
 ## Verifying the Download
@@ -120,7 +122,7 @@ Claude Desktop) or Claude Code until the issue is resolved.
 
 | Tool | Read/Write | Destructive | Description |
 | --- | --- | --- | --- |
-| `create_investigation` | Write | No | Create a new investigation to group related detections together for collaborative analysis. Investigations allow analysts to track and manage security incidents by associating detections, assigning ownership, and recording assessments and notes. |
+| `create_investigation` | Write | No | Create a new investigation to group related detections together for collaborative analysis. Investigations allow analysts to track and manage security incidents by associating detections, assigning ownership, and recording assessments and notes. Returns the ID of the new investigation. |
 | `search_detections` | Read | No | Search for security detections with filters like category, status, assignee, and type. Returns a compact summary for each detection. Use get_detection and search_detectionactivity for more details. |
 | `get_detection` | Read | No | Get details for a detection by ID. Pair with search_detectionactivity for the correlated timeline. See search_detections tool description for documentation on how to pivot from participants to device metadata or records. |
 | `update_detection` | Write | No | Update a detection. All fields are optional. Resolution is only valid when the detection status is (or is being set to) "closed". Setting status to a non-closed value clears any existing resolution. |
