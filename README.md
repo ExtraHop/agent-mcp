@@ -151,11 +151,3 @@ Claude Desktop) or Claude Code until the issue is resolved.
 | `get_eql_schema` | Read | No | Get the EQL search schema for a resource: the fields that can be queried and the operators available. |
 | `get_eql_fieldvalues` | Read | No | Get the expected values for one or more EQL fields on a resource. |
 | `search_detectionlogs` | Read | No | Search detection log entries with an EQL query and return matching entries. |
-
-## Related Repositories
-
-This repository is a member of ExtraHop's agent repositories:
-
-- ExtraHop/agent-mcp (this repository)
-- [ExtraHop/agent-cli](https://github.com/ExtraHop/agent-cli)
-- [ExtraHop/agent-skills](https://github.com/ExtraHop/agent-skills)
