@@ -4,9 +4,11 @@
 
 ## **Important**: Recent Breaking Changes
 
-- HTTP streaming is temporarily disabled and will be re-enabled once OAuth is
-supported.
+- API keys and client secrets must be provided through environment variables;
+  the `-apikey` and `-clientsecret` command-line options have been removed.
+- HTTP streaming is temporarily disabled and will be re-enabled once OAuth is supported.
 - All environment variables have been renamed from EXMCP_* to EXTRAHOP_*.
+- ExtraHop Firmware version >= 26.3 is now recommended for optimal functionality.
 
 ## Verifying the Download
 
@@ -122,15 +124,18 @@ Claude Desktop) or Claude Code until the issue is resolved.
 
 | Tool | Read/Write | Destructive | Description |
 | --- | --- | --- | --- |
+| `get_exmcp_version` | Read | No | Get the version of the running ExtraHop MCP server. |
 | `create_investigation` | Write | No | Create a new investigation to group related detections together for collaborative analysis. Investigations allow analysts to track and manage security incidents by associating detections, assigning ownership, and recording assessments and notes. Returns the ID of the new investigation. |
-| `search_detections` | Read | No | Search for security detections with filters like category, status, assignee, and type. Returns a compact summary for each detection. Use get_detection and search_detectionactivity for more details. |
-| `get_detection` | Read | No | Get details for a detection by ID. Pair with search_detectionactivity for the correlated timeline. See search_detections tool description for documentation on how to pivot from participants to device metadata or records. |
 | `update_detection` | Write | No | Update a detection. All fields are optional. Resolution is only valid when the detection status is (or is being set to) "closed". Setting status to a non-closed value clears any existing resolution. |
-| `search_detectionactivity` | Read | No | Get the timeline of observed activity that makes up the detection, with correlated participants and properties. Use alongside get_detection when investigating a detection in detail. See search_detections tool description for documentation on how to pivot from participants to device metadata or records. |
 | `get_detectiontypemetadata` | Read | No | Get metadata for a detection type by its type key. Returns the display name, MITRE ATT&CK technique IDs, categories, and typed property definitions. Only active detection formats and active properties are returned. Use to understand what a detection type means and what properties its activity entries will carry. |
 | `get_appliance_metadata` | Read | No | Retrieve metadata about the firmware running on the ExtraHop appliance. |
 | `get_extrahop_help_docs_url` | Read | No | Get the ExtraHop documentation URL for the connected appliance. |
-| `search_devices` | Read | No | Search for devices with filters and active time range. Returns a compact summary for each device. To get full details for a device use get_device. |
+| `create_tuningrule` | Write | Yes | Create a tuning rule. |
+| `get_detection` | Read | No | Retrieve a specific detection. |
+| `preview_tuningrule` | Read | No | Retrieve a preview that describes how many detection log entries will be hidden by a tuning rule. |
+| `search_detections` | Read | No | Search for detections. |
+| `search_devices` | Read | No | Retrieve all active devices that match specific criteria. |
+| `search_networkusers` | Read | No | Search for network users. |
 | `get_device` | Read | No | Get full details for a device by ID aka OID. |
 | `search_devicegroups` | Read | No | Perform a filtered search for collections of devices |
 | `search_records` | Read | No | Search transaction records (HTTP, DNS, SSL, etc.). |
@@ -142,11 +147,7 @@ Claude Desktop) or Claude Code until the issue is resolved.
 | `search_metric_catalog` | Read | No | Search the local ExtraHop metric catalog. The catalog lists most builtin metrics that the appliance supports. Custom metrics are not included. |
 | `assign_devicetag_to_devices` | Write | No | Assign a tag to one or more devices. The tag must already exist. |
 | `unassign_devicetag_from_devices` | Write | No | Unassign a tag from one or more devices. The tag must already exist. |
-
-## Related Repositories
-
-This repository is a member of ExtraHop's agent repositories:
-
-- ExtraHop/agent-mcp (this repository)
-- [ExtraHop/agent-cli](https://github.com/ExtraHop/agent-cli)
-- [ExtraHop/agent-skills](https://github.com/ExtraHop/agent-skills)
+| `get_eql_syntax` | Read | No | Get the EQL (ExtraHop Query Language) query syntax reference shared by every EQL search tool. |
+| `get_eql_schema` | Read | No | Get the EQL search schema for a resource: the fields that can be queried and the operators available. |
+| `get_eql_fieldvalues` | Read | No | Get the expected values for one or more EQL fields on a resource. |
+| `search_detectionlogs` | Read | No | Search detection log entries with an EQL query and return matching entries. |

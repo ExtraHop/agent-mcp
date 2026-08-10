@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.158] - 2026-08-10
+
+### Added
+
+- EQL detection log search (`search_detectionlogs`)
+- EQL network user search (`search_networkusers`)
+- EQL schema discovery (`get_eql_schema`)
+- EQL field value discovery (`get_eql_fieldvalues`)
+- EQL syntax discovery (`get_eql_syntax`)
+- Detection tuning rule creation (`create_tuningrule`)
+- Detection tuning rule preview (`preview_tuningrule`)
+- exmcp version discovery (`get_exmcp_version`)
+
+### Changed
+
+- Report the build version in MCP server metadata
+- `search_records` supports retrieving records by `detection_log_entry_id`
+- `get_detection` supports including detection activity logs
+- `search_detections` supports additional filters, sorting, ID-only results,
+  and activity logs
+- **Breaking:** `search_devices` and `search_detections` return REST results
+  under `body`, omit pagination metadata, and use REST API default limits
+- Recommend ExtraHop firmware 26.3 or later for optimal functionality
+
+### Removed
+
+- **Breaking:** Remove the `exmcp` `-apikey` and `-clientsecret` command-line
+  options; use `EXTRAHOP_API_KEY` and `EXTRAHOP_CLIENT_SECRET` instead
+- **Breaking:** Remove `search_detectionactivity`; use `search_detectionlogs` instead
+
 ## [0.0.120] - 2026-07-20
 
 ### Changed
