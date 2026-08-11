@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.161] - 2026-08-11
 
-**Recommend ExtraHop firmware 26.3 or later for optimal functionality**
+**Requires ExtraHop firmware 26.3 or later. For earlier firmware versions, see the [0.0.120 release](https://github.com/ExtraHop/agent-mcp/tree/a383721e39500e2621185dc1ec52e5635ee31306/dist).**
 
 ### Added
 
@@ -26,7 +26,7 @@ All notable changes to this project will be documented in this file.
   ID-only results
 - **Breaking:** `search_devices` and `search_detections` return REST results
   under `body`, omit pagination metadata, and use REST API default limits
-- Recommend ExtraHop firmware 26.3 or later for optimal functionality
+- ExtraHop Firmware version 26.3 or later is now required.
 
 ### Removed
 

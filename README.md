@@ -2,13 +2,15 @@
 
 `exmcp` exposes ExtraHop data through the Model Context Protocol (MCP).
 
+**Requires ExtraHop firmware 26.3 or later. For earlier firmware versions, see the [0.0.120 release](https://github.com/ExtraHop/agent-mcp/tree/a383721e39500e2621185dc1ec52e5635ee31306/dist).**
+
 ## **Important**: Recent Breaking Changes
 
 - API keys and client secrets must be provided through environment variables;
   the `-apikey` and `-clientsecret` command-line options have been removed.
 - HTTP streaming is temporarily disabled and will be re-enabled once OAuth is supported.
 - All environment variables have been renamed from EXMCP_* to EXTRAHOP_*.
-- ExtraHop Firmware version >= 26.3 is now recommended for optimal functionality.
+- ExtraHop Firmware version 26.3 or later is now required.
 
 ## Verifying the Download
 
@@ -35,9 +37,6 @@ Configure exactly one credential family:
 - Rx360: set `EXTRAHOP_CLIENT_ID` and `EXTRAHOP_CLIENT_SECRET`.
 - RxEnterprise: set `EXTRAHOP_API_KEY`.
 
-Configure credentials in your MCP client's config file (see the
-client-specific sections below).
-
 ## Access Control
 
 The MCP server's access privilege is determined by the credentials it receives. The MCP server has no additional access controls at present.
@@ -57,6 +56,12 @@ filesystem.
 It is strongly encouraged that `download_pcap` only be used in conditions where
 the MCP client and MCP server are the same host and share the same file system.
 
+## Secrets and Environment Variables
+
+The environment variables `EXTRAHOP_API_KEY` and `EXTRAHOP_CLIENT_SECRET` should
+be treated as secrets and should be protected according to security best
+practices.
+
 ## Codex CLI
 
 Add `exmcp` to `~/.codex/config.json`:
@@ -68,14 +73,15 @@ Add `exmcp` to `~/.codex/config.json`:
       "type": "stdio",
       "command": "/path/to/exmcp",
       "args": ["tenant.cloud.extrahop.com"],
+      "env_vars": ["EXTRAHOP_CLIENT_SECRET"],
       "env": {
-        "EXTRAHOP_CLIENT_ID": "...",
-        "EXTRAHOP_CLIENT_SECRET": "..."
+        "EXTRAHOP_CLIENT_ID": "..."
       }
     }
   }
 }
 ```
+*(assumes Rx360 appliance and EXTRAHOP_CLIENT_SECRET defined prior to launch)*
 
 Verify:
 
@@ -99,12 +105,13 @@ Add `exmcp` to one of the following config files:
       "args": ["tenant.cloud.extrahop.com"],
       "env": {
         "EXTRAHOP_CLIENT_ID": "...",
-        "EXTRAHOP_CLIENT_SECRET": "..."
+        "EXTRAHOP_CLIENT_SECRET": "${EXTRAHOP_CLIENT_SECRET}"
       }
     }
   }
 }
 ```
+*(assumes Rx360 appliance and EXTRAHOP_CLIENT_SECRET defined prior to launch)*
 
 Verify in Claude Code / Claude Desktop:
 
@@ -126,7 +133,7 @@ Claude Desktop) or Claude Code until the issue is resolved.
 | --- | --- | --- | --- |
 | `get_exmcp_version` | Read | No | Get the version of the running ExtraHop MCP server. |
 | `create_investigation` | Write | No | Create a new investigation to group related detections together for collaborative analysis. Investigations allow analysts to track and manage security incidents by associating detections, assigning ownership, and recording assessments and notes. Returns the ID of the new investigation. |
-| `update_detection` | Write | No | Update a detection. All fields are optional. Resolution is only valid when the detection status is (or is being set to) "closed". Setting status to a non-closed value clears any existing resolution. |
+| `update_detection` | Write | Yes | Update a detection. All fields are optional. Resolution is only valid when the detection status is (or is being set to) "closed". Setting status to a non-closed value clears any existing resolution. |
 | `get_detectiontypemetadata` | Read | No | Get metadata for a detection type by its type key. Returns the display name, MITRE ATT&CK technique IDs, categories, and typed property definitions. Only active detection formats and active properties are returned. Use to understand what a detection type means and what properties its activity entries will carry. |
 | `get_appliance_metadata` | Read | No | Retrieve metadata about the firmware running on the ExtraHop appliance. |
 | `get_extrahop_help_docs_url` | Read | No | Get the ExtraHop documentation URL for the connected appliance. |
